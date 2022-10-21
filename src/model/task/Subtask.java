@@ -1,3 +1,5 @@
+package model.task;
+
 public class Subtask extends Task {
     private int epicId;
 
@@ -7,7 +9,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "Subtask{" +
+        return "task.Subtask{" +
                 "id=" + super.getId() +
                 ", epicId=" + epicId +
                 ", name='" + super.getName() + '\'' +

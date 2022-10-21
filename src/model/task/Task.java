@@ -1,4 +1,4 @@
-import java.util.HashMap;
+package model.task;
 
 public class Task {
     private String name;
@@ -13,7 +13,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "task.Task{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

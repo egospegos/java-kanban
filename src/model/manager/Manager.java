@@ -1,3 +1,6 @@
+package model.manager;
+
+import model.task.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,7 +56,7 @@ public class Manager {
     }
 
     public ArrayList<Task> getTasks() {
-        ArrayList<Task> taskList =  new ArrayList<>(tasks.values());
+        ArrayList<Task> taskList = new ArrayList<>(tasks.values());
         return taskList;
     }
 
@@ -82,12 +85,12 @@ public class Manager {
     }
 
     public ArrayList<Epic> getEpics() {
-        ArrayList<Epic> epicList =  new ArrayList<>(epics.values());
+        ArrayList<Epic> epicList = new ArrayList<>(epics.values());
         return epicList;
     }
 
     public ArrayList<Subtask> getSubtasks() {
-        ArrayList<Subtask> subtaskList =  new ArrayList<>(subtasks.values());
+        ArrayList<Subtask> subtaskList = new ArrayList<>(subtasks.values());
         return subtaskList;
     }
 

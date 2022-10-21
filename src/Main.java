@@ -1,3 +1,8 @@
+import model.manager.Manager;
+import model.task.Epic;
+import model.task.Subtask;
+import model.task.Task;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -9,7 +14,7 @@ public class Main {
         Epic epic1 = new Epic("Эпик BIG", "Первый эпик");
         Epic epic2 = new Epic("Эпик SMALL", "Второй эпик");
         Subtask subtask1 = new Subtask("Подзадача", "Подзадача первого эпика");
-        Subtask subtask2 = new Subtask("Subtask", "Subtask of first epic");
+        Subtask subtask2 = new Subtask("task.Subtask", "task.Subtask of first epic");
         Subtask subtask3 = new Subtask("Подзадача", "Подзадача второго эпика");
 
         manager.createTask(task1);
