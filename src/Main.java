@@ -4,13 +4,13 @@ public class Main {
 
     public static void main(String[] args) {
         Manager manager = new Manager();
-        Task task1 = new Task("Задание", "Описание задания", "NEW");
-        Task task2 = new Task("Дело", "Описание дела", "NEW");
+        Task task1 = new Task("Задание", "Описание задания");
+        Task task2 = new Task("Дело", "Описание дела");
         Epic epic1 = new Epic("Эпик BIG", "Первый эпик");
         Epic epic2 = new Epic("Эпик SMALL", "Второй эпик");
-        Subtask subtask1 = new Subtask("Подзадача", "Подзадача первого эпика", "NEW");
-        Subtask subtask2 = new Subtask("Subtask", "Subtask of first epic", "IN_PROGRESS");
-        Subtask subtask3 = new Subtask("Подзадача", "Подзадача второго эпика", "NEW");
+        Subtask subtask1 = new Subtask("Подзадача", "Подзадача первого эпика");
+        Subtask subtask2 = new Subtask("Subtask", "Subtask of first epic");
+        Subtask subtask3 = new Subtask("Подзадача", "Подзадача второго эпика");
 
         manager.createTask(task1);
         manager.createTask(task2);
@@ -25,12 +25,12 @@ public class Main {
         System.out.println(manager.getSubtasks().toString());
 
         System.out.println("Обновлённые данные");
-        Subtask updatedSubtask3 = new Subtask("Изменённая подзадача", "Новое описание", "DONE");
-        manager.updateSubtask(updatedSubtask3, subtask3.getId());
-        Task updatedTask = new Task("Изменённая задача", "Новое описание", "IN_PROGRESS");
-        manager.updateTask(updatedTask, task1.getId());
-        Subtask updatedSubtask2 = new Subtask("Updated subtask", "It was IN_PROGRESS", "NEW");
-        manager.updateSubtask(updatedSubtask2, subtask2.getId());
+        Subtask updatedSubtask3 = new Subtask("Изменённая подзадача", "Новое описание");
+        manager.updateSubtask(updatedSubtask3, subtask3.getId(), "IN_PROGRESS");
+        Task updatedTask = new Task("Изменённая задача", "Новое описание");
+        manager.updateTask(updatedTask, task1.getId(), "DONE");
+        Subtask updatedSubtask2 = new Subtask("Updated subtask", "It was IN_PROGRESS");
+        manager.updateSubtask(updatedSubtask2, subtask2.getId(), "DONE");
         System.out.println(manager.getTasks().toString());
         System.out.println(manager.getEpics().toString());
         System.out.println(manager.getSubtasks().toString());
