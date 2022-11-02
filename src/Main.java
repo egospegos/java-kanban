@@ -1,5 +1,7 @@
-import model.manager.Manager;
+import model.manager.Managers;
+import model.manager.TaskManager;
 import model.task.Epic;
+import model.task.Status;
 import model.task.Subtask;
 import model.task.Task;
 
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        Manager manager = new Manager();
+        TaskManager manager = Managers.getDefault();
         Task task1 = new Task("Задание", "Описание задания");
         Task task2 = new Task("Дело", "Описание дела");
         Epic epic1 = new Epic("Эпик BIG", "Первый эпик");
@@ -31,11 +33,11 @@ public class Main {
 
         System.out.println("Обновлённые данные");
         Subtask updatedSubtask3 = new Subtask("Изменённая подзадача", "Новое описание");
-        manager.updateSubtask(updatedSubtask3, subtask3.getId(), "IN_PROGRESS");
+        manager.updateSubtask(updatedSubtask3, subtask3.getId(), Status.IN_PROGRESS);
         Task updatedTask = new Task("Изменённая задача", "Новое описание");
-        manager.updateTask(updatedTask, task1.getId(), "DONE");
+        manager.updateTask(updatedTask, task1.getId(), Status.DONE);
         Subtask updatedSubtask2 = new Subtask("Updated subtask", "It was IN_PROGRESS");
-        manager.updateSubtask(updatedSubtask2, subtask2.getId(), "DONE");
+        manager.updateSubtask(updatedSubtask2, subtask2.getId(), Status.DONE);
         System.out.println(manager.getTasks().toString());
         System.out.println(manager.getEpics().toString());
         System.out.println(manager.getSubtasks().toString());
@@ -50,5 +52,20 @@ public class Main {
         System.out.println("Получаем список подзадач эпика1");
         ArrayList<Subtask> subtasksOfEpic = manager.getSubtasksByEpicId(epic1.getId());
         System.out.println(subtasksOfEpic);
+
+        System.out.println("Проверка работы историй:");
+        manager.getTaskById(task2.getId());
+        manager.getEpicById(epic1.getId());
+        manager.getSubtaskById(subtask1.getId());
+        manager.getSubtaskById(subtask1.getId());
+        manager.getSubtaskById(subtask2.getId());
+        manager.getSubtaskById(subtask2.getId());
+        manager.getSubtaskById(subtask3.getId());
+        manager.getSubtaskById(subtask3.getId());
+        manager.getSubtaskById(subtask1.getId());
+        manager.getSubtaskById(subtask1.getId());
+        manager.getSubtaskById(subtask2.getId());
+
+        System.out.println(manager.getHistoryManager().getHistory().toString());
     }
 }

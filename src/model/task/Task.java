@@ -4,7 +4,7 @@ public class Task {
     private String name;
     private String description;
     private int id;
-    private String status; // NEW IN_PROGRESS DONE
+    private Status status; // NEW IN_PROGRESS DONE
 
     public Task(String name, String description) {
         this.name = name;
@@ -45,11 +45,11 @@ public class Task {
         this.id = id;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }
