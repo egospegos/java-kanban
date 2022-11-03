@@ -6,6 +6,7 @@ import model.task.Task;
 import model.task.Status;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public interface TaskManager {
 
@@ -49,6 +50,6 @@ public interface TaskManager {
 
     void clearSubtasks();
 
-    HistoryManager getHistoryManager();
+    LinkedList<Task> getHistory();
 
 }

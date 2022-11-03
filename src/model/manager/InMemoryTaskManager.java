@@ -4,12 +4,14 @@ import model.task.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
     private int generatedId = 0;
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
-    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private Map<Integer, Task> tasks = new HashMap<>();
+    private Map<Integer, Epic> epics = new HashMap<>();
+    private Map<Integer, Subtask> subtasks = new HashMap<>();
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
@@ -149,6 +151,15 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubtaskById(int id) {
+        //удалить ИД сабтаска из списка ИД сабтасков связанного эпика
+        int epicId = subtasks.get(id).getEpicId();
+        for (int i = 0; i < epics.get(epicId).getSubtasksId().size(); i++) {
+            if (epics.get(epicId).getSubtasksId().get(i) == id) {
+                epics.get(epicId).getSubtasksId().remove(i);
+                break;
+            }
+        }
+        //удалить саму сабтаску
         subtasks.remove(id);
     }
 
@@ -170,7 +181,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public HistoryManager getHistoryManager() {
-        return historyManager;
+    public LinkedList<Task> getHistory() {
+        return historyManager.getHistory();
     }
 }

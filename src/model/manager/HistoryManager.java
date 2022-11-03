@@ -2,10 +2,10 @@ package model.manager;
 
 import model.task.Task;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public interface HistoryManager {
-    ArrayList<Task> getHistory();
+    LinkedList<Task> getHistory();
 
     void add(Task task);
 }

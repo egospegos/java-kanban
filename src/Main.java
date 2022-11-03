@@ -27,9 +27,9 @@ public class Main {
         manager.createSubtask(subtask2, epic1.getId());
         manager.createSubtask(subtask3, epic2.getId());
         System.out.println("Первоначальные данные");
-        System.out.println(manager.getTasks().toString());
-        System.out.println(manager.getEpics().toString());
-        System.out.println(manager.getSubtasks().toString());
+        System.out.println(manager.getTasks());
+        System.out.println(manager.getEpics());
+        System.out.println(manager.getSubtasks());
 
         System.out.println("Обновлённые данные");
         Subtask updatedSubtask3 = new Subtask("Изменённая подзадача", "Новое описание");
@@ -38,16 +38,17 @@ public class Main {
         manager.updateTask(updatedTask, task1.getId(), Status.DONE);
         Subtask updatedSubtask2 = new Subtask("Updated subtask", "It was IN_PROGRESS");
         manager.updateSubtask(updatedSubtask2, subtask2.getId(), Status.DONE);
-        System.out.println(manager.getTasks().toString());
-        System.out.println(manager.getEpics().toString());
-        System.out.println(manager.getSubtasks().toString());
+        System.out.println(manager.getTasks());
+        System.out.println(manager.getEpics());
+        System.out.println(manager.getSubtasks());
 
-        System.out.println("Удаляем таск1 и эпик2");
+        System.out.println("Удаляем таск1, сабтаск1 и эпик2");
         manager.deleteTaskById(task1.getId());
+        manager.deleteSubtaskById(subtask1.getId());
         manager.deleteEpicById(epic2.getId());
-        System.out.println(manager.getTasks().toString());
-        System.out.println(manager.getEpics().toString());
-        System.out.println(manager.getSubtasks().toString());
+        System.out.println(manager.getTasks());
+        System.out.println(manager.getEpics());
+        System.out.println(manager.getSubtasks());
 
         System.out.println("Получаем список подзадач эпика1");
         ArrayList<Subtask> subtasksOfEpic = manager.getSubtasksByEpicId(epic1.getId());
@@ -66,6 +67,6 @@ public class Main {
         manager.getSubtaskById(subtask1.getId());
         manager.getSubtaskById(subtask2.getId());
 
-        System.out.println(manager.getHistoryManager().getHistory().toString());
+        System.out.println(manager.getHistory());
     }
 }
