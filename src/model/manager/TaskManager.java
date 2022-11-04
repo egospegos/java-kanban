@@ -5,8 +5,7 @@ import model.task.Subtask;
 import model.task.Task;
 import model.task.Status;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 public interface TaskManager {
 
@@ -22,15 +21,15 @@ public interface TaskManager {
 
     void updateSubtask(Subtask subtask, int id, Status status);
 
-    ArrayList<Task> getTasks();
+    List<Task> getTasks();
 
     Status getEpicStatus(Epic epic);
 
-    ArrayList<Epic> getEpics();
+    List<Epic> getEpics();
 
-    ArrayList<Subtask> getSubtasks();
+    List<Subtask> getSubtasks();
 
-    ArrayList<Subtask> getSubtasksByEpicId(int epicId);
+    List<Subtask> getSubtasksByEpicId(int epicId);
 
     Task getTaskById(int id);
 
@@ -50,6 +49,6 @@ public interface TaskManager {
 
     void clearSubtasks();
 
-    LinkedList<Task> getHistory();
+    List<Task> getHistory();
 
 }

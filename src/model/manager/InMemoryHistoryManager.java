@@ -3,13 +3,14 @@ package model.manager;
 import model.task.Task;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private LinkedList<Task> taskHistory = new LinkedList<>();
     private static final int HISTORY_SIZE = 10;
 
     @Override
-    public LinkedList<Task> getHistory() {
+    public List<Task> getHistory() {
         return taskHistory;
     }
 

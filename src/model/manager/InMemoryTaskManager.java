@@ -2,10 +2,7 @@ package model.manager;
 
 import model.task.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     private int generatedId = 0;
@@ -66,8 +63,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getTasks() {
-        ArrayList<Task> taskList = new ArrayList<>(tasks.values());
+    public List<Task> getTasks() {
+        List<Task> taskList = new ArrayList<>(tasks.values());
         return taskList;
     }
 
@@ -97,20 +94,20 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Epic> getEpics() {
-        ArrayList<Epic> epicList = new ArrayList<>(epics.values());
+    public List<Epic> getEpics() {
+        List<Epic> epicList = new ArrayList<>(epics.values());
         return epicList;
     }
 
     @Override
-    public ArrayList<Subtask> getSubtasks() {
-        ArrayList<Subtask> subtaskList = new ArrayList<>(subtasks.values());
+    public List<Subtask> getSubtasks() {
+        List<Subtask> subtaskList = new ArrayList<>(subtasks.values());
         return subtaskList;
     }
 
     @Override
-    public ArrayList<Subtask> getSubtasksByEpicId(int epicId) {
-        ArrayList<Subtask> subtasksOfEpic = new ArrayList<>();
+    public List<Subtask> getSubtasksByEpicId(int epicId) {
+        List<Subtask> subtasksOfEpic = new ArrayList<>();
         for (Integer i : subtasks.keySet()) {
             if (subtasks.get(i).getEpicId() == epicId) subtasksOfEpic.add(subtasks.get(i));
         }
@@ -159,6 +156,12 @@ public class InMemoryTaskManager implements TaskManager {
                 break;
             }
         }
+
+        for (Integer subtaskId : epics.get(epicId).getSubtasksId()) {
+            if (subtaskId == id) {
+
+            }
+        }
         //удалить саму сабтаску
         subtasks.remove(id);
     }
@@ -181,7 +184,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public LinkedList<Task> getHistory() {
+    public List<Task> getHistory() {
         return historyManager.getHistory();
     }
 }

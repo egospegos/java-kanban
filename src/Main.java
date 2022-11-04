@@ -5,7 +5,7 @@ import model.task.Status;
 import model.task.Subtask;
 import model.task.Task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -51,7 +51,7 @@ public class Main {
         System.out.println(manager.getSubtasks());
 
         System.out.println("Получаем список подзадач эпика1");
-        ArrayList<Subtask> subtasksOfEpic = manager.getSubtasksByEpicId(epic1.getId());
+        List<Subtask> subtasksOfEpic = manager.getSubtasksByEpicId(epic1.getId());
         System.out.println(subtasksOfEpic);
 
         System.out.println("Проверка работы историй:");
