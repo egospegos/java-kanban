@@ -42,14 +42,6 @@ public class Main {
         System.out.println(manager.getEpics());
         System.out.println(manager.getSubtasks());
 
-        System.out.println("Удаляем таск1, сабтаск1 и эпик2");
-        manager.deleteTaskById(task1.getId());
-        manager.deleteSubtaskById(subtask1.getId());
-        manager.deleteEpicById(epic2.getId());
-        System.out.println(manager.getTasks());
-        System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
-
         System.out.println("Получаем список подзадач эпика1");
         List<Subtask> subtasksOfEpic = manager.getSubtasksByEpicId(epic1.getId());
         System.out.println(subtasksOfEpic);
@@ -66,7 +58,14 @@ public class Main {
         manager.getSubtaskById(subtask1.getId());
         manager.getSubtaskById(subtask1.getId());
         manager.getSubtaskById(subtask2.getId());
-
         System.out.println(manager.getHistory());
+
+        System.out.println("Удаляем таск1, сабтаск1 и эпик2");
+        manager.deleteTaskById(task1.getId());
+        manager.deleteSubtaskById(subtask1.getId());
+        manager.deleteEpicById(epic2.getId());
+        System.out.println(manager.getTasks());
+        System.out.println(manager.getEpics());
+        System.out.println(manager.getSubtasks());
     }
 }
