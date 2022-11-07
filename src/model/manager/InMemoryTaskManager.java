@@ -150,12 +150,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteSubtaskById(int id) {
         //удалить ИД сабтаска из списка ИД сабтасков связанного эпика
         int epicId = subtasks.get(id).getEpicId();
-        for (Integer subtaskId : epics.get(epicId).getSubtasksId()) {
-            if (subtaskId == id) {
-                epics.get(epicId).getSubtasksId().remove(Integer.valueOf(subtaskId));
-                break;
-            }
-        }
+        epics.get(epicId).getSubtasksId().remove(Integer.valueOf(id)); //удалить объект ИД из списка ИД сабтасков
         //удалить саму сабтаску
         subtasks.remove(id);
     }
