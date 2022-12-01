@@ -168,17 +168,35 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void clearTasks() {
+        //удалить из истории все таски
+        for (Integer id : tasks.keySet()) {
+            historyManager.remove(id);
+        }
         tasks.clear();
     }
 
     @Override
     public void clearEpics() {
+        //удалить из истории все эпики и сабтаски
+        for (Integer id : epics.keySet()) {
+            historyManager.remove(id);
+        }
+        for (Integer id : subtasks.keySet()) {
+            historyManager.remove(id);
+        }
         epics.clear();
         subtasks.clear(); //при удалении всех эпиков удаляются все сабтаски
     }
 
     @Override
     public void clearSubtasks() {
+        //удалить из истории все эпики и сабтаски
+        for (Integer id : epics.keySet()) {
+            historyManager.remove(id);
+        }
+        for (Integer id : subtasks.keySet()) {
+            historyManager.remove(id);
+        }
         subtasks.clear();
         epics.clear(); //при удалении всех сабтасков удаляются все эпики
     }
