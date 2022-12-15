@@ -20,11 +20,24 @@ public class Epic extends Task {
                 '}';
     }
 
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.EPIC;
+    }
+
     public ArrayList<Integer> getSubtasksId() {
         return subtasksId;
     }
 
     public void setSubtasksId(ArrayList<Integer> subtasksId) {
         this.subtasksId = subtasksId;
+    }
+
+    public static Epic fromString(String value) {
+        String[] split = value.split(",");
+        Epic epic = new Epic(split[2], split[4]);
+        epic.setId(Integer.parseInt(split[0]));
+        epic.setStatusFromString(split[3]);
+        return epic;
     }
 }

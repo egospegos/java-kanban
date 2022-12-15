@@ -52,4 +52,32 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public void setStatusFromString(String string) {
+        switch (string) {
+            case "DONE":
+                this.status = Status.DONE;
+                break;
+            case "NEW":
+                this.status = Status.NEW;
+                break;
+            case "IN_PROGRESS":
+                this.status = Status.IN_PROGRESS;
+                break;
+        }
+    }
+
+    public TaskType getTaskType() {
+        return TaskType.TASK;
+    }
+
+    public static Task fromString(String value) {
+        String[] split = value.split(",");
+        Task task = new Task(split[2], split[4]);
+        task.setId(Integer.parseInt(split[0]));
+        task.setStatusFromString(split[3]);
+        return task;
+    }
+
+
 }

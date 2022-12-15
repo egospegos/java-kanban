@@ -1,3 +1,4 @@
+import model.manager.FileBackedTaskManager;
 import model.manager.Managers;
 import model.manager.TaskManager;
 import model.task.Epic;
@@ -5,11 +6,16 @@ import model.task.Status;
 import model.task.Subtask;
 import model.task.Task;
 
+import java.io.File;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        FileBackedTaskManager.main(args);
+
+        /*
         TaskManager manager = Managers.getDefault();
         Task task1 = new Task("Задача1", "Описание задания");
         Task task2 = new Task("Задача2", "Описание дела");
@@ -61,5 +67,7 @@ public class Main {
 
         manager.clearSubtasks();
         System.out.println(manager.getHistory());
+
+         */
     }
 }
