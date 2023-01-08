@@ -6,6 +6,7 @@ import model.task.Task;
 import model.task.Status;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TaskManager {
 
@@ -17,13 +18,19 @@ public interface TaskManager {
 
     void updateTask(Task task, int id, Status status);
 
-    void updateEpic(Epic epic, int id);
+    void updateEpic(Epic epic, int id, Status status);
 
     void updateSubtask(Subtask subtask, int id, Status status);
 
     List<Task> getTasks();
 
     Status getEpicStatus(Epic epic);
+
+    void calculateEpicStartAndEndTime(Epic epic);
+
+    List<Task> getPrioritizedTasks();
+
+    void checkCrossing();
 
     List<Epic> getEpics();
 

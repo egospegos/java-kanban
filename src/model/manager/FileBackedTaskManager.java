@@ -4,6 +4,9 @@ import model.exception.ManagerSaveException;
 import model.task.*;
 
 import java.io.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,9 +206,15 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String fileName = "info.csv";
         File fileInfo = new File("resources\\" + fileName);
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(fileInfo);
+        LocalDateTime dateTime = LocalDateTime.of(2023, Month.JANUARY, 1, 12, 10);
+        Duration duration = Duration.ofMinutes(40);
 
         Task task1 = new Task("Задача1", "Описание задания");
+        task1.setStartTimeAndDuration(dateTime, duration);
+
         Task task2 = new Task("Задача2", "Описание дела");
+        task2.setStartTimeAndDuration(task1.getEndTime(), Duration.ofMinutes(10));
+
         Epic epic1 = new Epic("Эпик1", "Большой эпик");
         Epic epic2 = new Epic("Эпик2", "Малый эпик");
         Subtask subtask1 = new Subtask("Подзадача1", "information");

@@ -7,6 +7,7 @@ public class Subtask extends Task {
         super(name, description);
     }
 
+
     @Override
     public String toString() {
         return "task.Subtask{" +
@@ -15,8 +16,11 @@ public class Subtask extends Task {
                 ", name='" + super.getName() + '\'' +
                 ", description='" + super.getDescription() + '\'' +
                 ", status='" + super.getStatus() + '\'' +
+                ", startTime=" + super.getStartTime() + '\'' +
+                ", duration=" + super.getDuration() + '\'' +
                 '}';
     }
+
 
     @Override
     public TaskType getTaskType() {

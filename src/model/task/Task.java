@@ -1,10 +1,15 @@
 package model.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Task {
     private String name;
     private String description;
     private int id;
     private Status status; // NEW IN_PROGRESS DONE
+    private LocalDateTime startTime;
+    private Duration duration;
 
     public Task(String name, String description) {
         this.name = name;
@@ -13,11 +18,13 @@ public class Task {
 
     @Override
     public String toString() {
-        return "task.Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return "Task{" +
+                "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
+                ", id=" + id +
+                ", status=" + status +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
                 '}';
     }
 
@@ -53,6 +60,27 @@ public class Task {
         this.status = status;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public void setStartTimeAndDuration(LocalDateTime startTime, Duration duration) {
+        this.startTime = startTime;
+        this.duration = duration;
+    }
+
     public void setStatusFromString(String string) {
         switch (string) {
             case "DONE":
@@ -77,6 +105,10 @@ public class Task {
         task.setId(Integer.parseInt(split[0]));
         task.setStatusFromString(split[3]);
         return task;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration.toMinutes());
     }
 
 

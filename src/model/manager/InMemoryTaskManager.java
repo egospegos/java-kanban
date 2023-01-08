@@ -2,6 +2,9 @@ package model.manager;
 
 import model.task.*;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
@@ -9,6 +12,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected Map<Integer, Task> tasks = new HashMap<>();
     protected Map<Integer, Epic> epics = new HashMap<>();
     protected Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected Set<Task> orderedTasks = new TreeSet<>(Comparator.comparing(l -> l.getStartTime()));
     protected HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
@@ -42,10 +46,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updateEpic(Epic epic, int id) {
+    public void updateEpic(Epic epic, int id, Status status) {
         ArrayList<Integer> subtasksId = epics.get(id).getSubtasksId();
         epic.setSubtasksId(subtasksId); // перенос подзадач эпика
         epic.setId(id);
+        epic.setStatus(status);
         epics.put(id, epic);
     }
 
@@ -62,28 +67,23 @@ public class InMemoryTaskManager implements TaskManager {
         epics.get(epicId).setStatus(newStatus);
     }
 
-    @Override
-    public List<Task> getTasks() {
-        List<Task> taskList = new ArrayList<>(tasks.values());
-        return taskList;
-    }
 
     @Override
     public Status getEpicStatus(Epic epic) {
         Status status = Status.NEW;
         int counterDone = 0;
         int counterNew = 0;
-        if (epic.getSubtasksId().size() == 0) return Status.NEW;
+        if (epic.getSubtasksId().size() == 0 || epic.getSubtasksId() == null) return Status.NEW;
         for (int i = 0; i < epic.getSubtasksId().size(); i++) {
             int subtaskId = epic.getSubtasksId().get(i);
             status = subtasks.get(subtaskId).getStatus();
-            if (status.equals("IN_PROGRESS")) {
+            if (status.equals(Status.IN_PROGRESS)) {
                 return Status.IN_PROGRESS;
             }
-            if (status.equals("NEW")) {
+            if (status.equals(Status.NEW)) {
                 counterNew++;
             }
-            if (status.equals("DONE")) {
+            if (status.equals(Status.DONE)) {
                 counterDone++;
             }
         }
@@ -91,6 +91,54 @@ public class InMemoryTaskManager implements TaskManager {
         if (counterDone != 0 && counterDone == epic.getSubtasksId().size()) return Status.DONE;
 
         return Status.IN_PROGRESS;
+    }
+
+    @Override
+    public void calculateEpicStartAndEndTime(Epic epic) {
+        List<Subtask> subtasksOfEpic = new ArrayList<>();
+        for (Integer i : subtasks.keySet()) {
+            if (subtasks.get(i).getEpicId() == epic.getId()) subtasksOfEpic.add(subtasks.get(i));
+        }
+        //находим начало, конец и продолжительность
+        LocalDateTime start = LocalDateTime.of(3000, Month.MAY, 1, 10, 10);
+        LocalDateTime end = LocalDateTime.of(1500, Month.MAY, 1, 10, 10);
+        long duration = 0;
+        for (Subtask subtask : subtasksOfEpic) {
+            if (subtask.getStartTime().isBefore(start)) start = subtask.getStartTime();
+            if (subtask.getEndTime().isAfter(end)) end = subtask.getEndTime();
+            duration += subtask.getDuration().toMinutes();
+        }
+        epic.setStartTime(start);
+        epic.setEndTime(end);
+        epic.setDuration(Duration.ofMinutes(duration));
+    }
+
+    @Override
+    public List<Task> getPrioritizedTasks() {
+        List<Task> tasks = getTasks();
+        List<Subtask> subtasks = getSubtasks();
+
+        orderedTasks.addAll(tasks);
+        orderedTasks.addAll(subtasks);
+        List<Task> orderedTasksList = new ArrayList<>(orderedTasks);
+        return orderedTasksList;
+    }
+
+    //проверка пересечений
+    @Override
+    public void checkCrossing() {
+        List<Task> orderedTasksList = new ArrayList<>(orderedTasks);
+        for (int i = 0; i < orderedTasksList.size() - 1; i++) {
+            LocalDateTime first = orderedTasksList.get(i).getEndTime();
+            LocalDateTime second = orderedTasksList.get(i+1).getStartTime();
+            if (first.isAfter(second)) System.out.println("Есть пересечения");
+        }
+    }
+
+    @Override
+    public List<Task> getTasks() {
+        List<Task> taskList = new ArrayList<>(tasks.values());
+        return taskList;
     }
 
     @Override
