@@ -20,6 +20,7 @@ public class InMemoryTaskManager implements TaskManager {
         task.setId(generatedId++);
         task.setStatus(Status.NEW);
         tasks.put(task.getId(), task);
+        orderedTasks.add(task);
     }
 
     @Override
@@ -36,6 +37,7 @@ public class InMemoryTaskManager implements TaskManager {
         subtask.setStatus(Status.NEW);
         subtasks.put(subtask.getId(), subtask);
         epics.get(epicId).getSubtasksId().add(subtask.getId()); //добавили ИД подзадачи в нужный эпик
+        orderedTasks.add(subtask);
     }
 
     @Override
@@ -115,11 +117,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getPrioritizedTasks() {
-        List<Task> tasks = getTasks();
-        List<Subtask> subtasks = getSubtasks();
-
-        orderedTasks.addAll(tasks);
-        orderedTasks.addAll(subtasks);
         List<Task> orderedTasksList = new ArrayList<>(orderedTasks);
         return orderedTasksList;
     }
@@ -182,6 +179,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteTaskById(int id) {
+        orderedTasks.remove(tasks.get(id));
         tasks.remove(id);
         historyManager.remove(id);
     }
@@ -200,12 +198,14 @@ public class InMemoryTaskManager implements TaskManager {
             }
         }
         for (Integer i : subtasksIdToDelete) {
+            orderedTasks.remove(subtasks.get(i));
             subtasks.remove(i);
         }
     }
 
     @Override
     public void deleteSubtaskById(int id) {
+        orderedTasks.remove(subtasks.get(id));
         //удалить ИД сабтаска из списка ИД сабтасков связанного эпика
         int epicId = subtasks.get(id).getEpicId();
         epics.get(epicId).getSubtasksId().remove(Integer.valueOf(id)); //удалить объект ИД из списка ИД сабтасков

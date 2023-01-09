@@ -76,6 +76,10 @@ public class Task {
         this.duration = duration;
     }
 
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration.toMinutes());
+    }
+
     public void setStartTimeAndDuration(LocalDateTime startTime, Duration duration) {
         this.startTime = startTime;
         this.duration = duration;
@@ -104,11 +108,8 @@ public class Task {
         Task task = new Task(split[2], split[4]);
         task.setId(Integer.parseInt(split[0]));
         task.setStatusFromString(split[3]);
+        task.setStartTimeAndDuration(LocalDateTime.parse(split[5]), Duration.parse(split[6]));
         return task;
-    }
-
-    public LocalDateTime getEndTime() {
-        return startTime.plusMinutes(duration.toMinutes());
     }
 
 

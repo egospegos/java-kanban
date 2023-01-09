@@ -1,5 +1,8 @@
 package model.task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Subtask extends Task {
     private int epicId;
 
@@ -41,6 +44,7 @@ public class Subtask extends Task {
         subtask.setId(Integer.parseInt(split[0]));
         subtask.setStatusFromString(split[3]);
         subtask.setEpicId(Integer.parseInt(split[5]));
+        subtask.setStartTimeAndDuration(LocalDateTime.parse(split[6]), Duration.parse(split[7]));
         return subtask;
     }
 }

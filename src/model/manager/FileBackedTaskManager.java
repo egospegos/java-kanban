@@ -153,7 +153,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     public String toString(Task task) {
-        return task.getId() + "," + TaskType.TASK + "," + task.getName() + "," + task.getStatus() + "," + task.getDescription() + ",";
+        return task.getId() + "," + TaskType.TASK + "," + task.getName() + "," + task.getStatus() + "," +
+                task.getDescription() + "," + task.getStartTime() + "," + task.getDuration() + ",";
     }
 
     public String toString(Epic epic) {
@@ -162,7 +163,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public String toString(Subtask subtask) {
         return subtask.getId() + "," + TaskType.SUBTASK + "," + subtask.getName() + "," + subtask.getStatus() + "," +
-                subtask.getDescription() + "," + subtask.getEpicId();
+                subtask.getDescription() + "," + subtask.getEpicId() + "," + subtask.getStartTime() + "," + subtask.getDuration();
     }
 
     public static TaskType getTaskType(String value) {
@@ -220,6 +221,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         Subtask subtask1 = new Subtask("Подзадача1", "information");
         Subtask subtask2 = new Subtask("Подзадача2", "information");
         Subtask subtask3 = new Subtask("Подзадача3", "information");
+
+        subtask1.setStartTimeAndDuration(task2.getEndTime(), Duration.ofMinutes(30));
+        subtask2.setStartTimeAndDuration(subtask1.getEndTime(), Duration.ofMinutes(60));
+        subtask3.setStartTimeAndDuration(subtask2.getEndTime(), Duration.ofMinutes(15));
 
         fileBackedTaskManager.createTask(task1);
         fileBackedTaskManager.createTask(task2);
