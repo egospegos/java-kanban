@@ -229,6 +229,13 @@ class InMemoryTaskManagerTest {
     }
 
     @Test
+    void getPrioritizedTasksWithClearSubtasks() {
+        manager.clearSubtasks();
+        List<Task> orderedTasks = manager.getPrioritizedTasks();
+        System.out.println(orderedTasks);
+    }
+
+    @Test
     void checkCrossing() {
         manager.getPrioritizedTasks();
         manager.checkCrossing();

@@ -216,9 +216,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void clearTasks() {
-        //удалить из истории все таски
+        //удалить из истории все таски и из orderedTasks
         for (Integer id : tasks.keySet()) {
             historyManager.remove(id);
+            orderedTasks.remove(tasks.get(id));
         }
         tasks.clear();
     }
@@ -231,6 +232,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         for (Integer id : subtasks.keySet()) {
             historyManager.remove(id);
+            orderedTasks.remove(subtasks.get(id));
         }
         epics.clear();
         subtasks.clear(); //при удалении всех эпиков удаляются все сабтаски
@@ -238,15 +240,16 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void clearSubtasks() {
-        //удалить из истории все эпики и сабтаски
+        //Очистить у эпиков поле subtasksId
         for (Integer id : epics.keySet()) {
-            historyManager.remove(id);
+            epics.get(id).getSubtasksId().clear();
         }
+        //удалить сабтаски из истории и из orderedTasks
         for (Integer id : subtasks.keySet()) {
             historyManager.remove(id);
+            orderedTasks.remove(subtasks.get(id));
         }
         subtasks.clear();
-        epics.clear(); //при удалении всех сабтасков удаляются все эпики
     }
 
     @Override
