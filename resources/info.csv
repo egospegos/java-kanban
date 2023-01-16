@@ -7,4 +7,4 @@ id,type,name,status,description,epic
 5,SUBTASK,Подзадача2,NEW,information,2,2023-01-01T13:30,PT1H
 6,SUBTASK,Подзадача3,NEW,information,2,2023-01-01T14:30,PT15M
 
-1,3,6
+1,3,6,0
