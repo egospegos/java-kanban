@@ -29,12 +29,6 @@ public class KVServer {
 		server.createContext("/load", this::load);
 	}
 
-	public static void main(String[] args) throws IOException {
-
-		KVServer server = new KVServer();
-		server.start();
-
-	}
 
 	private void load(HttpExchange h) throws IOException  {
 		// TODO Добавьте получение значения по ключу
@@ -120,7 +114,7 @@ public class KVServer {
 
 	public void stop() {
 		server.stop(0);
-		System.out.println("Остановили HttpTaskServer на порту" + PORT);
+		System.out.println("Остановили KVServer на порту" + PORT);
 	}
 
 	private String generateApiToken() {

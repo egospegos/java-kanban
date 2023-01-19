@@ -2,13 +2,15 @@ package model.manager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import model.adapter.LocalDateTimeAdapter;
 
 import java.io.File;
 import java.time.LocalDateTime;
 
 public class Managers {
     public static TaskManager getDefault() {
-        return new InMemoryTaskManager();
+        return new HttpTaskManager(8078);
+        //return new InMemoryTaskManager();
     }
 
 
@@ -25,7 +27,10 @@ public class Managers {
 
     public static Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
-       // gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
+        //gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
+        //не понимаю, как с адаптером работать.
+        // с ним не работает POST-запрос, если оформлять body и отправлять запрос чере постман
+
         return gsonBuilder.create();
     }
 }

@@ -1,73 +1,64 @@
 import model.manager.FileBackedTaskManager;
 import model.manager.Managers;
 import model.manager.TaskManager;
+import model.server.HttpTaskServer;
+import model.server.KVServer;
 import model.task.Epic;
 import model.task.Status;
 import model.task.Subtask;
 import model.task.Task;
 
 import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        FileBackedTaskManager.main(args);
 
-        /*
+        new KVServer().start();
+
         TaskManager manager = Managers.getDefault();
-        Task task1 = new Task("Задача1", "Описание задания");
-        Task task2 = new Task("Задача2", "Описание дела");
-        Epic epic1 = new Epic("Эпик1", "Большой эпик");
-        Epic epic2 = new Epic("Эпик2", "Малый эпик");
+
+        Task task1 = new Task("Задача", "Описание задачи");
+        Task task2 = new Task("Задача2", "Описание задачи2");
+        Epic epic = new Epic("Эпик1", "Большой эпик");
         Subtask subtask1 = new Subtask("Подзадача1", "information");
-        Subtask subtask2 = new Subtask("Подзадача2", "information");
-        Subtask subtask3 = new Subtask("Подзадача3", "information");
+        Subtask subtask2 = new Subtask("Подзадача2", "description");
+        Subtask subtask3 = new Subtask("Подзадача3", "something");
+
+        LocalDateTime dateTime = LocalDateTime.of(2023, Month.JANUARY, 1, 12, 10);
+        Duration duration = Duration.ofMinutes(40);
+        subtask1.setStartTimeAndDuration(dateTime, duration);
+        subtask2.setStartTimeAndDuration(subtask1.getEndTime(), Duration.ofMinutes(50));
+        subtask3.setStartTimeAndDuration(subtask2.getEndTime(), Duration.ofMinutes(50));
+
+        LocalDateTime dateTime2 = LocalDateTime.of(2022, Month.DECEMBER, 5, 18, 15);
+        Duration duration2 = Duration.ofMinutes(30);
+        task1.setStartTimeAndDuration(dateTime2, duration2);
+        LocalDateTime dateTime3 = LocalDateTime.of(2023, Month.MARCH, 30, 20, 57);
+        Duration duration3 = Duration.ofMinutes(20);
+        task2.setStartTimeAndDuration(dateTime3, duration3);
 
         manager.createTask(task1);
         manager.createTask(task2);
-        manager.createEpic(epic1);
-        manager.createEpic(epic2);
-        manager.createSubtask(subtask1, epic1.getId());
-        manager.createSubtask(subtask2, epic1.getId());
-        manager.createSubtask(subtask3, epic1.getId());
-        System.out.println("Первоначальные данные");
-        System.out.println(manager.getTasks());
-        System.out.println(manager.getEpics());
-        System.out.println(manager.getSubtasks());
+        manager.createEpic(epic);
+        manager.createSubtask(subtask1, epic.getId());
+        manager.createSubtask(subtask2, epic.getId());
+        manager.createSubtask(subtask3, epic.getId());
 
-        System.out.println("Проверка работы историй:");
-        manager.getTaskById(task1.getId());
-        manager.getTaskById(task2.getId());
-        System.out.println(manager.getHistory());
+        manager.calculateEpicStartAndEndTime(epic);
 
-        manager.getEpicById(epic2.getId());
-        manager.getEpicById(epic1.getId());
-        System.out.println(manager.getHistory());
+        System.out.println(manager.getPrioritizedTasks());
 
-        manager.getSubtaskById(subtask1.getId());
-        manager.getSubtaskById(subtask1.getId());
-        manager.getSubtaskById(subtask2.getId());
-        manager.getSubtaskById(subtask2.getId());
-        manager.getSubtaskById(subtask3.getId());
-        manager.getSubtaskById(subtask3.getId());
-        manager.getSubtaskById(subtask1.getId());
-        manager.getSubtaskById(subtask1.getId());
-        manager.getSubtaskById(subtask2.getId());
-        System.out.println(manager.getHistory());
 
-        manager.getTaskById(task1.getId());
-        System.out.println(manager.getHistory());
+        HttpTaskServer httpTaskServer = new HttpTaskServer(manager);
+        httpTaskServer.start();
 
-        System.out.println("Удаляем таск1, сабтаск1 и эпик1");
-        manager.deleteTaskById(task1.getId());
-        manager.deleteSubtaskById(subtask1.getId());
-        System.out.println(manager.getHistory());
 
-        manager.clearSubtasks();
-        System.out.println(manager.getHistory());
-
-         */
     }
 }

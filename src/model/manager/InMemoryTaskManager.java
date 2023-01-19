@@ -8,7 +8,7 @@ import java.time.Month;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
-    private int generatedId = 0;
+    protected int generatedId = 0;
     protected Map<Integer, Task> tasks = new HashMap<>();
     protected Map<Integer, Epic> epics = new HashMap<>();
     protected Map<Integer, Subtask> subtasks = new HashMap<>();
@@ -41,27 +41,24 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updateTask(Task task, int id, Status status) {
+    public void updateTask(Task task, int id) {
         task.setId(id);
-        task.setStatus(status);
         tasks.put(id, task);
     }
 
     @Override
-    public void updateEpic(Epic epic, int id, Status status) {
+    public void updateEpic(Epic epic, int id) {
         ArrayList<Integer> subtasksId = epics.get(id).getSubtasksId();
         epic.setSubtasksId(subtasksId); // перенос подзадач эпика
         epic.setId(id);
-        epic.setStatus(status);
         epics.put(id, epic);
     }
 
     @Override
-    public void updateSubtask(Subtask subtask, int id, Status status) {
+    public void updateSubtask(Subtask subtask, int id) {
         subtask.setId(id);
         int epicId = subtasks.get(id).getEpicId();
         subtask.setEpicId(epicId);
-        subtask.setStatus(status);
         subtasks.put(id, subtask);
 
         //обновление статуса эпика

@@ -206,7 +206,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public static void main(String[] args) {
         String fileName = "info.csv";
         File fileInfo = new File("resources\\" + fileName);
-      /*  FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(fileInfo);
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(fileInfo);
         LocalDateTime dateTime = LocalDateTime.of(2023, Month.JANUARY, 1, 12, 10);
         Duration duration = Duration.ofMinutes(40);
 
@@ -242,7 +242,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         System.out.println(fileBackedTaskManager.getEpics());
         System.out.println(fileBackedTaskManager.getSubtasks());
         System.out.println("История:");
-        System.out.println(fileBackedTaskManager.getHistory()); */
+        System.out.println(fileBackedTaskManager.getHistory());
 
 
         FileBackedTaskManager fileBTM2 = loadFromFile(fileInfo);

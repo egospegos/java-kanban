@@ -16,11 +16,11 @@ public interface TaskManager {
 
     void createSubtask(Subtask subtask, int epicId);
 
-    void updateTask(Task task, int id, Status status);
+    void updateTask(Task task, int id);
 
-    void updateEpic(Epic epic, int id, Status status);
+    void updateEpic(Epic epic, int id);
 
-    void updateSubtask(Subtask subtask, int id, Status status);
+    void updateSubtask(Subtask subtask, int id);
 
     List<Task> getTasks();
 
